@@ -110,18 +110,17 @@ class Tree:
         if not self.root:
             return []
         
+        cur = self.root
         stack = []
         res = []
-        cur = self.root
-        while cur or stack:
+        while stack or cur:
             while cur:
                 stack.append(cur)
                 cur = cur.left
             node = stack.pop()
             res.append(node.val)
             cur = node.right
-        return res
-        
+        return res        
             
     
 
