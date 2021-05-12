@@ -6,34 +6,59 @@
 稳定性：不稳定
 '''
 
-def quick_sort(alist):
-    def quick_helper(alist, start, end):
-        if start >= end:
-            return 
+# def quick_sort(alist):
+#     def quick_helper(alist, start, end):
+#         if start >= end:
+#             return 
         
-        piovt = start
-        left = start + 1
-        right = end
+#         piovt = start
+#         left = start + 1
+#         right = end
 
-        while left <= right:
-            if alist[left] > alist[piovt] and alist[right] < alist[piovt]:
-                alist[left], alist[right] = alist[right], alist[left]
+#         while left <= right:
+#             if alist[left] > alist[piovt] and alist[right] < alist[piovt]:
+#                 alist[left], alist[right] = alist[right], alist[left]
             
-            elif alist[left] <= alist[piovt]:
-                left += 1
+#             elif alist[left] <= alist[piovt]:
+#                 left += 1
 
-            elif alist[right] >= alist[piovt]:
-                right -= 1
+#             elif alist[right] >= alist[piovt]:
+#                 right -= 1
 
-        alist[piovt], alist[right] = alist[right], alist[piovt]
+#         alist[piovt], alist[right] = alist[right], alist[piovt]
 
-        quick_helper(alist, start, right-1)
-        quick_helper(alist, right+1, end)
+#         quick_helper(alist, start, right-1)
+#         quick_helper(alist, right+1, end)
     
-    quick_helper(alist, 0, len(alist)-1)
+#     quick_helper(alist, 0, len(alist)-1)
+#     return alist
+
+# if __name__ == "__main__":
+#     alist = [1, 4, 2, 5, 3, 6, 8, 7, 7]
+#     print(quick_sort(alist))
+
+
+def quick_sort(alist):
+
+    def helper(alist, left, right):
+        if left >= right:
+            return 
+        pivot = left
+        l = left + 1
+        r = right
+        while l <= r:
+            if alist[l] > alist[pivot] and alist[r] < alist[pivot]:
+                alist[l], alist[r] = alist[r], alist[l]
+            if alist[l] <= alist[pivot]:
+                l += 1
+            if alist[r] >= alist[pivot]:
+                r -= 1
+        alist[pivot], alist[r] = alist[r], alist[pivot]
+        helper(alist, left, r-1)
+        helper(alist, r+1, right)
+    helper(alist, 0, len(alist)-1)
     return alist
 
 if __name__ == "__main__":
     alist = [1, 4, 2, 5, 3, 6, 8, 7, 7]
     print(quick_sort(alist))
-

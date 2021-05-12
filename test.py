@@ -1,28 +1,27 @@
-from sortedcontainers import SortedList
+def smallestK(arr, k):
+    def helper(arr, start, end):
+        if start >= end:
+            return 
+        pivot = start
+        left = start + 1
+        right = end
+        while left <= right:
+            if arr[left] > arr[pivot] and arr[right] <= arr[pivot]:
+                arr[left], arr[right] = arr[right], arr[left]
+            if arr[left] <= arr[pivot]:
+                left += 1
+            if arr[right] > arr[pivot]:
+                right -= 1
+        arr[pivot], arr[right] = arr[right], arr[pivot]
+        if right == k-1:
+            return arr
+        if right > k-1:
+            return helper(arr, start, right-1)
+        if right < k-1:
+            return helper(arr, right+1, end)
+    helper(arr, 0, len(arr)-1)
+    return arr[:k]
 
-
-def maxSumSubmatrix(matrix, k):
-    ans = float("-inf")
-    m = len(matrix)
-    n = len(matrix[0]) if matrix else 0
-
-    for i in range(m):   # 枚举上边界
-        total = [0] * n
-        for j in range(i, m):   # 枚举下边界
-            for c in range(n):
-                total[c] += matrix[j][c]   # 更新每列的元素和
-            
-            totalSet = SortedList([0])
-            s = 0
-            for v in total:
-                s += v
-                lb = totalSet.bisect_left(s - k)
-                if lb != len(totalSet):
-                    ans = max(ans, s - totalSet[lb])
-                totalSet.add(s)
-
-    return ans
-
-matrix = [[1,0,1],[0,-2,3]]
-a = maxSumSubmatrix(matrix, 2)
-print(a)
+arr = [1,3,5,7,2,4,6,8]
+k = 4
+smallestK(arr, k)
