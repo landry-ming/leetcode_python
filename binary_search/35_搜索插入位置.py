@@ -1,3 +1,6 @@
+"""
+二分查找 但是注意边界位置
+"""
 class Solution:
     def searchInsert(self, nums: List[int], target: int) -> int:
 
